@@ -11,11 +11,10 @@ import React from 'react';
 import { defineMessages, FormattedMessage } from 'react-intl';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import s from './Header.css';
-import Link from '../Link';
+
 import Navigation from '../Navigation';
 import LanguageSwitcher from '../LanguageSwitcher';
-import logoUrl from './logo-small.png';
-import logoUrl2x from './logo-small@2x.png';
+import logoUrl from './logo.png';
 
 const messages = defineMessages({
   brand: {
@@ -36,11 +35,35 @@ const messages = defineMessages({
 });
 
 class Header extends React.Component {
+
+  renderContent() {
+    const { isLoginView } = this.props;
+    if (isLoginView) {
+      return (
+        <div>
+          <img
+            className={s.loginLogo}
+            src={logoUrl}
+            width="90"
+            height="90"
+            alt="Logo"
+          />
+          <h1 className={s.loginBrand}>Your Company</h1>
+        </div>
+      );
+    } 
+    
+    else {
+      return "nothing for now";
+    }
+  }
+
   render() {
+    const { isLoginView } = this.props;
     return (
-      <div className={s.root}>
+      <div className={ isLoginView ? s.rootLogin : s.root }>
         <div className={s.container}>
-          
+          {this.renderContent()}
         </div>
       </div>
     );

@@ -16,7 +16,7 @@ import normalizeCss from 'normalize.css';
 import s from './Layout.css';
 import Header from '../Header';
 import Footer from '../Footer';
-import SlideshowContainer from '../../containers/Slideshow/SlideshowContainer';
+import LoginView from '../LoginView';
 
 class Layout extends React.Component {
   static propTypes = {
@@ -31,8 +31,8 @@ class Layout extends React.Component {
   render() {
     return (
       <div>
-        {/* Testing Slideshow*/}
-        <SlideshowContainer />
+        {/* Testing LoginView*/}
+        <LoginView />
       </div>
     );
   }

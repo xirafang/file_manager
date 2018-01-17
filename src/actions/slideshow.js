@@ -2,11 +2,8 @@ import {
     SET_SLIDESHOW_IMAGE
     , NEXT_SLIDESHOW_IMAGE
     , SET_SLIDESHOW_SET
-    , UPDATE_SLIDESHOW_IMAGE
     , START_SLIDESHOW_SLIDE_ANIMATION
     , STOP_SLIDESHOW_SLIDE_ANIMATION
-    , START_SLIDESHOW_TIMER
-    , STOP_SLIDESHOW_TIMER
 } from "../constants";
 
 // Settings
@@ -48,11 +45,6 @@ export const nextSlideshowImage = _ => ({
     , imageProps: randomizer()
 });
 
-export const updateSlideshowImage = props => ({
-    type: UPDATE_SLIDESHOW_IMAGE
-    , imageProps: props
-});
-
 
 /*===========================================================
  * Slides
@@ -67,22 +59,3 @@ export const stopSlideAnimation = id => ({
     type: STOP_SLIDESHOW_SLIDE_ANIMATION
     , id: id
 })
-
-
-/*===========================================================
- * Timer
- *===========================================================*/
-
-// 
-let timer = null;
-let refreshRate = 30;
-
-export const startSlideshowTimer = (dispatch, props) =>{ 
-    timer = setInterval(_ => dispatch(updateSlideshowImage(props)), refreshRate);
-    return { type: START_SLIDESHOW_TIMER };
-};
-
-export const stopSlidershowTimer = _ => {
-    clearInterval(timer);
-    return { type: STOP_SLIDESHOW_TIMER };
-};

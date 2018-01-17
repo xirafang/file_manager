@@ -16,7 +16,6 @@ import Slide from './Slide';
 import { 
   setSlideshowSet
   , nextSlideshowImage
-  , updateSlideshowImage
  } from "../../actions/slideshow";
 
 // Temporary Images

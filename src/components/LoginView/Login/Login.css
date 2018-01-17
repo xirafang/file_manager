@@ -1,0 +1,68 @@
+/**
+ * React Starter Kit (https://www.reactstarterkit.com/)
+ *
+ * Copyright © 2014-present Kriasoft, LLC. All rights reserved.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE.txt file in the root directory of this source tree.
+ */
+
+@import '../../variables.css';
+
+.root {
+    width:100%;
+}
+
+.container {
+    min-height: 10em;
+    width: 14em;
+    margin: 0 auto;
+    padding: 4em;
+}
+
+.form {
+
+}
+
+.formGroup {
+    padding: 0.6em 0.5em;
+    margin-bottom: 0.8em; 
+    border-bottom: solid #298f9f 1px;
+    display: flex;
+}
+
+.icon {
+    font-size: 1.2em;
+    color: #4a8691;
+}
+
+.input {
+    width: 10em;
+    margin-left: 1.2em;
+    border: none;
+    outline: none;
+    color: #53b1ad;
+    background-color: transparent;
+}
+
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color: #53b1ad;
+}
+::-moz-placeholder { /* Firefox 19+ */
+    color: #53b1ad;
+}
+:-ms-input-placeholder { /* IE 10+ */
+    color: #53b1ad;
+}
+:-moz-placeholder { /* Firefox 18- */
+    color: #53b1ad;
+}
+
+.submitBtn {
+    width: 100%;
+    margin-top: 1em;
+    padding: 1em;
+    border: none;
+    border-radius: 2%;
+    background-color: #53b1ad;
+}
