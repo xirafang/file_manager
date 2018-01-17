@@ -15,7 +15,7 @@ import Slide from './Slide';
 // Actions
 import { 
   setSlideshowSet
-  , setSlideshowImage
+  , nextSlideshowImage
   , updateSlideshowImage
  } from "../../actions/slideshow";
 
@@ -51,8 +51,7 @@ class Slideshow extends React.Component {
   }
 
   changeImage(dispatch, set, id) {
-    let _id = (id+1) % set.length;
-    dispatch(setSlideshowImage(_id));
+    dispatch(nextSlideshowImage());
   }
 
   getImageSrc(set = [], id, active) {
@@ -65,17 +64,33 @@ class Slideshow extends React.Component {
     } else return itmp0;
   }
 
-  getImageProps() {
-
+  getSources(set = [], id, slides) {
+    if (set.length !== 0) {
+      return slides.map( slide => {    
+        return slide.active 
+          ? set[id]
+          : id === 0
+            ? set[set.length-1]
+            : set[id-1];
+      });
+    } else  return [0, 1].map( index => index === 0 ? itmp3 : itmp0 )
   }
 
   render() {
+    
+    // Props
     const { 
       set
       , slides
       , dispatch
       , displayedImageId 
     } = this.props;
+
+    // Get the images to display in each slide.
+    let sources = 
+      this.getSources(set, displayedImageId, slides );
+
+    // Render
     return (
       <div className={s.root}>
 
@@ -85,24 +100,24 @@ class Slideshow extends React.Component {
             id={0}
             active={slides[0].active} 
             animate={slides[0].animate}
+            finish={slides[0].finish}
             dispatch={dispatch}
-            src={this.getImageSrc(set, displayedImageId, slides[0].active)} 
+            src={sources[0]} 
             srcProps={this.props.imageProps}
             />
           <Slide 
             id={1}
             active={slides[1].active}
             animate={slides[1].animate}
+            finish={slides[1].finish}
             dispatch={dispatch}
-            src={this.getImageSrc(set, displayedImageId, slides[1].active)}
+            src={sources[1]}
             srcProps={this.props.imageProps}
             />
         </div>
 
         {/* Overlay */}
-        <div className={s.overlay}>
-          <button onClick={ _ => this.changeImage(dispatch, set, displayedImageId)}>change</button>
-        </div>
+        <div className={s.overlay}></div>
       </div>
     );
   }

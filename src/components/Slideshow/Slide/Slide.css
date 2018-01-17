@@ -30,8 +30,8 @@
     opacity: 0;
 }
 
-.animate {
-    -webkit-transition: transform 20s, opacity 12s;
+.background, .animate {
+    -webkit-transition: transform 20s, background-position 20s, opacity 12s;
     transition: transform 20s, opacity 12s;
     transform: scale(1) !important;
     background-position: 0px !important;

@@ -1,5 +1,6 @@
 import { 
     SET_SLIDESHOW_IMAGE
+    , NEXT_SLIDESHOW_IMAGE
     , SET_SLIDESHOW_SET
     , UPDATE_SLIDESHOW_IMAGE
     , START_SLIDESHOW_SLIDE_ANIMATION
@@ -16,8 +17,8 @@ const initialState = {
         , xOffset: 0
         , yOffset: 0
     } , slides: [
-        { active: true,  animate: false },
-        { active: false, animate: false }
+        { active: true,  animate: false, finish: false },
+        { active: false, animate: false, finish: false }
     ]
 };
 
@@ -32,7 +33,7 @@ const slideshowReducer = (state = initialState, action) => {
                 , slides: state.slides.map((slide, id) => {
                     return id !== 0
                         ? slide
-                        : { active: true, animate: false }
+                        : { ...slide, active: true }
             })};
         case SET_SLIDESHOW_IMAGE:
             return {
@@ -41,8 +42,20 @@ const slideshowReducer = (state = initialState, action) => {
                 , slides: state.slides.map((slide, id) => ({
                     active: !slide.active
                     , animate: false
+                    , finish: !slide.finish
                 }))
             };
+        case NEXT_SLIDESHOW_IMAGE:
+            return {
+                ...state
+                , imageProps: action.imageProps
+                , displayedImageId: (state.displayedImageId+1) % state.set.length
+                , slides: state.slides.map((slide, id) => ({
+                    active: !slide.active
+                    , animate: false
+                    , finish: slide.active  
+                }))
+            }
         case START_SLIDESHOW_SLIDE_ANIMATION:
             return {
                 ...state
@@ -57,7 +70,7 @@ const slideshowReducer = (state = initialState, action) => {
                 , slides: state.slides.map((slide, id) => {
                     return (id !== action.id)
                         ? slide
-                        : { ...slide , animate: false }
+                        : { ...slide , animate: false, finish: true }
             })}
         default:
             return state;

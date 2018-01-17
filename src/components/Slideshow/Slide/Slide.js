@@ -14,14 +14,17 @@ import { Media } from 'reactstrap';
 
 import { 
   startSlideAnimation
-  , stopSlideAnimation  
+  , stopSlideAnimation
+  , nextSlideshowImage 
 } from "../../../actions/slideshow";
+import { setTimeout } from 'timers';
 
 class Slide extends React.Component {
   
   static propTypes = {
     active: PropTypes.bool.isRequired
     , animate: PropTypes.bool.isRequired
+    , finish: PropTypes.bool.isRequired
     , src: PropTypes.string.isRequired
     , srcProps: PropTypes.shape({
       zoom: PropTypes.number.isRequired
@@ -30,15 +33,23 @@ class Slide extends React.Component {
     }).isRequired
   };
 
-  static animationTrigger = 8000;
-
   //------------------------------------------------
 
   componentDidUpdate() {
-    const { dispatch, active, animate, id } = this.props;
-    if (active && !animate) {
-      setTimeout((_ => { this.props.dispatch(startSlideAnimation(id)) }), this.animationTrigger );
-    }
+    const { dispatch, active, animate, id, finish } = this.props;
+    if (active && !animate && !finish) {
+
+      const animationTrigger = _ => { 
+        dispatch(startSlideAnimation(id)) 
+      };
+      const nextSlideTrigger = _ => { 
+        dispatch(stopSlideAnimation(id));
+        dispatch(nextSlideshowImage()); 
+      };
+
+      setTimeout(animationTrigger, 200);
+      setTimeout(nextSlideTrigger, 14000);
+    } 
   }
   
 
@@ -57,14 +68,19 @@ class Slide extends React.Component {
           : "" )
   }
 
+  static savedStyles = null;
   getStyle() {
-    const { src, srcProps } = this.props;
-    return {
-      backgroundImage: 'url(' + src + ')'
-      , transform: 'scale(' + srcProps.zoom + ')'
-      /*, backgroundPosition: 
-        srcProps.xOffset + 'px '
-        + (srcProps.yOffset) + 'px'*/
+    const { src, srcProps, active } = this.props;
+    if (active) {
+      this.savedStyles = {
+        backgroundImage: 'url(' + src + ')'
+        , transform: 'scale(' + srcProps.zoom + ')'
+        , backgroundPosition: 
+          srcProps.xOffset + 'px '
+          + (srcProps.yOffset) + 'px'
+      }; return this.savedStyles;
+    } else {
+      return this.savedStyles;
     }
   }
 

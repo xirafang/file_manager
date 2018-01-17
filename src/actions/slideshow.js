@@ -1,5 +1,6 @@
 import { 
     SET_SLIDESHOW_IMAGE
+    , NEXT_SLIDESHOW_IMAGE
     , SET_SLIDESHOW_SET
     , UPDATE_SLIDESHOW_IMAGE
     , START_SLIDESHOW_SLIDE_ANIMATION
@@ -10,7 +11,7 @@ import {
 
 // Settings
 const minZoomIn = 1.1, maxZoomIn = 1.6;
-const minOffset = 10, maxOffset = 25;
+const minOffset = 30, maxOffset = 90;
 const travelSpeed = 0.05;
 
 // Randomizes the zoom and the offset of an image.
@@ -29,17 +30,22 @@ const randomizer = _ => {
  * Slideshow
  *===========================================================*/
 
+export const setSlideshowSet = set => ({
+    type: SET_SLIDESHOW_SET
+    , set: set
+    , displayedImageId: set.length == 0 ? null : 0
+    , imageProps: set.length == 0 ? null : randomizer()
+});
+
 export const setSlideshowImage = id => ({
     type: SET_SLIDESHOW_IMAGE
     , displayedImageId: id
     , imageProps: randomizer()
 });
 
-export const setSlideshowSet = set => ({
-    type: SET_SLIDESHOW_SET
-    , set: set
-    , displayedImageId: set.length == 0 ? null : 0
-    , imageProps: set.length == 0 ? null : randomizer()
+export const nextSlideshowImage = _ => ({
+    type: NEXT_SLIDESHOW_IMAGE
+    , imageProps: randomizer()
 });
 
 export const updateSlideshowImage = props => ({
