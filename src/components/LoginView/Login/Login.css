@@ -17,7 +17,7 @@
     min-height: 10em;
     width: 14em;
     margin: 0 auto;
-    padding: 4em;
+    padding: 10em;
 }
 
 .form {
@@ -27,13 +27,13 @@
 .formGroup {
     padding: 0.6em 0.5em;
     margin-bottom: 0.8em; 
-    border-bottom: solid #298f9f 1px;
+    border-bottom: solid #53b1ad 1px;
     display: flex;
 }
 
 .icon {
     font-size: 1.2em;
-    color: #4a8691;
+    color: #53b1ad;
 }
 
 .input {
@@ -41,28 +41,42 @@
     margin-left: 1.2em;
     border: none;
     outline: none;
-    color: #53b1ad;
+    color: #1ddbd2;
     background-color: transparent;
 }
 
-::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-    color: #53b1ad;
+::-webkit-input-placeholder 
+{
+    color: #5b8886;
 }
-::-moz-placeholder { /* Firefox 19+ */
-    color: #53b1ad;
-}
-:-ms-input-placeholder { /* IE 10+ */
-    color: #53b1ad;
-}
-:-moz-placeholder { /* Firefox 18- */
-    color: #53b1ad;
+
+::-webkit-input-placeholder,
+::-moz-placeholder,
+:-ms-input-placeholder,
+:-moz-placeholder 
+{
+    color: #81d3cf;
 }
 
 .submitBtn {
     width: 100%;
     margin-top: 1em;
     padding: 1em;
-    border: none;
-    border-radius: 2%;
-    background-color: #53b1ad;
+    border-radius: 4%;
+    color: #53b1ad;
+    border: solid #53b1ad 1px;
+    background-color: transparent;
+    transition: all 0.25s;
 }
+
+.submitBtn:hover {
+    cursor: pointer;
+    color: white;
+    background-color: rgba(35, 132, 128, 0.5);
+}
+
+
+/*========================================================
+ * Container Animation
+ *========================================================*/
+
